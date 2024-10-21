@@ -1,0 +1,31 @@
+<app-navbar (searchedText)="onSearchByKey($event)" (selectedCategory)="displayCategoryProducts($event)"></app-navbar>
+
+
+    <section id="featured" class="my-5 pb-5">
+
+        <div *ngIf="!categoryIschosen; else categoryChosen" class="container text-center mt-5 py-5">
+            <h3>Featured Products</h3>
+            <hr class="mx-auto">
+            <p>Check out our new Products on ShopIT .</p>
+        </div>
+        
+        <ng-template #categoryChosen >
+            <div class="container text-center mt-5 py-5">
+                <h3 style="text-transform: uppercase;"> {{categorySelected}}</h3>
+                <hr class="mx-auto">
+                <p>Check out our Products .</p>
+            </div>
+           
+        </ng-template>
+        <div class=" row mx-auto container-fluid flex">
+                    <app-product-item *ngFor="let p of products" (selectedProduct)="addItem($event)" [produit]="p" class="col-lg-3 col-md-4 col-12"></app-product-item>
+        </div>
+
+    
+    </section>
+
+
+    
+
+
+

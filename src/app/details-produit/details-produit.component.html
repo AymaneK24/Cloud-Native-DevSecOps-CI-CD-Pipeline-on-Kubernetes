@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<section class="container sproduct my-3 py-4">
+  <div class="row mt-5">
+    <div class="col-lg-5 col-md-12 col-12 product-images">
+      <img class="img-fluid main-img" [src]="detailsProduct.images[0]" alt="product-img">
+      <div class="small-img-group mt-1">
+        <div *ngFor="let img of detailsProduct.images.slice(1)" class="small-img-col">
+          <img [src]="img" class="small-img">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 col-md-12 col-12 product-details">
+      <h6>Home / {{detailsProduct.category}}</h6>
+      <h3 class="py-4">{{detailsProduct.title}}</h3>
+      <h2>{{detailsProduct.price | currency: 'USD': 'symbol':'1.2-2'}}</h2>
+      <div class="quantity-group">
+        <input type="number" value="1" class="quantity-input">
+      </div>
+      <button class="buy-btn">Add To Cart</button>
+      <h4 class="mt-2 mb-5">Product Details</h4>
+      <p>{{detailsProduct.description}}</p>
+    </div>
+  </div>
+</section>
+
+
+<div class="comment-section">
+  <h4 class="comment-title">How satisfied are you?</h4>
+  <div data-coreui-toggle="rating" data-coreui-value="3" class="rating"></div>
+  
+  <form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
+    <textarea formControlName="comment" placeholder="Leave your comment here..." class="comment-textarea"></textarea>
+    <button type="submit" class="comment-submit">Submit</button>
+  </form>
+
+  <!-- Display the submission message -->
+  <div *ngIf="submissionMessage" class="submission-message" >
+    {{ submissionMessage }}
+  </div>
+</div>

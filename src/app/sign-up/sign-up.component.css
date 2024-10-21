@@ -1,0 +1,82 @@
+/* General container for centering the form */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  /* Form styling */
+  .signup-form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  /* Titre styling */
+  .signup-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Form group (each input) */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Input fields styling */
+  .form-control {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .form-control:focus {
+    border-color: #fb774b;
+  }
+  
+  /* Button styling */
+  .btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: #fb774b;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-submit:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  /* Already have an account? text */
+  .login-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Login link styling */
+  .login-link {
+    color: #fb774b;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .login-link:hover {
+    text-decoration: underline;
+  }
+  

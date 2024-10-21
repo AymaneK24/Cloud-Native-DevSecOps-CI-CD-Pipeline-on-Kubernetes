@@ -1,0 +1,48 @@
+*{
+   
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.order{
+    position: relative;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background-image: linear-gradient(50deg,#ffb700 20%,#14dd7f 80%);
+    width: 280px;
+    height: 50px;
+    color:#fff;
+    overflow-y: hidden;
+    font-size: 22px;
+}
+
+span{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: 0.3s;
+}
+
+.text2{
+    top: -100%;
+
+}
+
+.order:hover{
+    background-image:linear-gradient(50deg, #14dd7f 20%,#ffb700 80%); ;
+}
+
+.order:hover .text1{
+    opacity: 0;
+}
+
+.order:hover .text2{
+    top: 50%;
+}
+
+
+
+

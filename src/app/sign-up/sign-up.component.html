@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="signup-container">
+  <form (ngSubmit)="onSubmit()" #signUpForm="ngForm" class="signup-form">
+    <h2 class="signup-title">Sign Up</h2>
+
+    <div class="form-group">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Email"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="username"
+        placeholder="Username"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Password"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="!signUpForm.valid">
+      Sign Up
+    </button>
+
+    <p class="login-text">
+      Already have an account? <a [routerLink]="['/auth']" class="login-link">Sign In</a>
+    </p>
+  </form>
+</div>
+

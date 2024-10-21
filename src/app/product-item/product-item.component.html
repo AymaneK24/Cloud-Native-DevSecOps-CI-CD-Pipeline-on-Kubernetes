@@ -1,0 +1,39 @@
+
+
+<div class="product  text-center ">      
+  <a [routerLink]="['/produits', produit.id]">
+    <img  class="img-fluid mb-3" [src]="produit.thumbnail" alt="palette">
+  </a>
+    <div class="star">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+    </div>
+    <h5 class="p-name">{{produit.title}}</h5>
+    <h4 class="p-price"> ${{produit.price}}</h4>
+
+    <div>
+        <button 
+          (click)="addToPanier()" 
+          class="buy-btn text-light" 
+          [disabled]="getState() === 'En rupture de stock'" 
+          >
+          {{ getState() === 'En stock' ? 'Buy Now' : 'Out of Stock' }}
+        </button>
+      <br>
+        <span *ngIf="getState() === 'En stock'; else outOfStock" style="color: green;">
+          {{ getState() }}
+        </span>
+        
+        <ng-template #outOfStock>
+          <span style="color: red;">{{ getState() }}</span>
+        </ng-template>
+      </div>
+
+  </div>
+
+
+
+

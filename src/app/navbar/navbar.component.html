@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <div class="container">
+    <img class="navbar-logo bg-body-tertiary" src="e-commerce.png" alt="logo">
+    <span class="logo-name">
+      ShopIT&nbsp;&nbsp;&nbsp; .
+    </span>
+
+
+    <div class="dropdown ml-5">
+      <button class="btn btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
+        aria-expanded="false" style="font-family: Poppins;"> Our categories
+      </button>
+
+      <div class="mega dropdown-menu custom-dropdown-menu">
+        <div class="container">
+          <div class="row">
+            <div *ngFor="let category of categories; let i = index" 
+           class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <ul class="list-unstyled">
+          <li>
+            <a (click)="onCategoryClick(category)" class="dropdown-item category-item" href="#">{{ category }}</a>
+          </li>
+        </ul>
+      </div>
+          </div>
+        </div>
+      </div>
+
+
+   
+    </div>
+
+
+
+    <div class="search-container ml-5">
+      <input (ngModelChange)="onSearchByKey()" [(ngModel)]="searchKey" type="text" class="search-click"
+        placeholder="search here..." [ngClass]="{'active': isSearchActive}" />
+      <i class="panier fa-sharp fa-solid fa-magnifying-glass" (click)="toggleSearch()"></i>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+
+
+        <li class="nav-item">
+          
+          <a class="nav-link" routerLink="">Home</a>
+        
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/orders']">My orders</a>
+        </li>
+
+
+        <li class="nav-item">
+          My cart
+          <i  class="fa-solid fa-cart-shopping" [routerLink]="['/panier']"></i>
+          
+          
+        </li>
+
+      </ul>
+
+      <button (click)="signIn()" *ngIf="!isLoggedIn" class="btn-signin" type="button">
+        Sign In
+      </button>
+
+      <!-- Logout Button -->
+      <button *ngIf="isLoggedIn" class="btn-light" type="button">
+        Logout
+      </button>
+
+    </div>
+  </div>
+
+</nav>

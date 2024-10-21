@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<div class="login-container">
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+    <h2 class="login-title">Sign In</h2>
+    
+    <div class="form-group">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Email"
+        class="form-control"
+        required
+      />
+    </div>
+    
+    <div class="form-group">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Password"
+        class="form-control"
+        required
+      />
+    </div>
+    
+    <button type="submit" class="btn-submit" [disabled]="!loginForm.valid">
+      Login
+    </button>
+    
+    <!-- Petit texte pour Sign Up -->
+    <p class="signup-text">
+      Not registered yet?  <a [routerLink] = "['/sign-up']" class="signup-link"> Sign Up</a>
+    </p>
+  </form>
+</div>

@@ -1,0 +1,65 @@
+
+<app-navbar></app-navbar>
+<div class="container">
+  <div class="row align-items-start"> <!-- Cette ligne met la table et la section sur le même niveau -->
+
+    <!-- Colonne pour la table -->
+    <div class="col-md-6">
+      <table class="table mt-3" style="width: 100%;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let detail of detailPanier ; let i = index" >
+            <th class="py-3" scope="row">{{i+1}}</th>
+            <td > 
+              <img [src]="detail.produit.thumbnail"class="img-thumbnail me-2"  style="width: 50px;">
+              {{detail.produit.title}}
+            </td>
+            <td class="py-3">
+              <img (click)="decrement(detail)" src="minus.png" style="width: 20px;cursor: pointer;">
+              {{detail.qte}}
+              <img (click)="increment(detail)" src="plus1.png" style="width: 20px;cursor: pointer;">
+            </td>
+            <td class="py-3">
+              {{ detail.produit.price * detail.qte | currency:'USD':'symbol':'1.2-2' }}
+            </td>
+            <img (click)="delete(detail)" class="py-3" src="supprimer.png" alt="icon" style="width: 40px;cursor: pointer;">
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Colonne pour la section panier -->
+    <div class="col-md-6">
+      <section id="panier-items">
+        <div class="text-center mt-3 py-3">
+          <h3 style="color: #fb774b;font-weight: 700;">Review Your Cart</h3>
+          <img src="shopping-bags.png" style="height: 80px;">
+          <hr class="mx-auto">
+          <p><img src="check-mark.png" style="height: 30px;"> Check your cart items before validation.</p>
+        
+          <h3 style="color: #fb774b;font-weight: 700;">Total Price : {{totalPaymentPrice | currency:'USD':'symbol':'1.2-2'}}</h3>
+        </div>
+
+        <div *ngIf="totalPaymentPrice!=0">
+        <div class=" container d-flex justify-content-center mt-4">
+          <button class="order">
+            <span class="text1"><i class="fa-brands fa-opencart"></i>&nbsp;&nbsp;&nbsp;&nbsp;ORDER NOW</span>
+            <span class="text2">CLICK ME</span>
+          </button>
+        </div>
+        
+      </div>
+
+
+      </section>
+    </div>
+
+  </div>
+</div>

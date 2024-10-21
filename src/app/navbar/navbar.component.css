@@ -1,0 +1,224 @@
+.navbar{
+  font-size: 16px;
+}
+
+.navbar-logo{
+  max-height: 50px; 
+  max-width: 40px; 
+  
+ 
+}
+
+.logo-name{
+  margin-left: 20px;
+  font-family: "Poppins";
+  font-weight: 700;
+}
+
+.navbar-light .navbar-nav .nav-link{
+  padding: 0 20px ;
+  color: black;
+  transition: 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar i:hover,
+.navbar i:active,
+.navbar-light .navbar-nav .nav-link.active{
+
+  color: coral;
+}
+
+.navbar i{
+  font-size: 1.2rem;
+  padding: 0 7px;
+  cursor: pointer;
+  transition: 0.3 ease;
+}
+
+#bar{
+  font-size: 1.5rem;
+  padding: 7px;
+  cursor: pointer;
+  transition: 0.3 ease;
+  color: black;
+  
+}
+
+#bar:hover,
+#bar:active{
+  color: coral;
+  
+
+}
+
+@media only screen and (max-width: 991px){
+  #navbarSupportedContent >ul >li:nth-child(n) > a{
+    padding: 10px 0;
+  }
+}
+
+
+
+.navbar-light .navbar-toggler{
+  border: none;
+  outline: none;
+
+}
+
+
+.search-container {
+  position: relative;
+  display: inline-block;
+}
+
+.search-click {
+  border: none;
+  outline: none;
+  background-size: 22px;
+  background-position: 13px;
+  border-radius: 10px;
+  width: 200px; 
+  height: 50px;
+  padding: 25px 10px; 
+  transition: all 0.5s;
+}
+
+.search-click:focus {
+  width: 400px; 
+  padding-left: 50px; 
+}
+
+.search-click:focus-visible {
+  outline: none; 
+}
+
+.search-click {
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+}
+
+.search-click input {
+  background: transparent;
+  border: 1px solid #ccc;
+  outline: none;
+  position: absolute;
+  width: 400px; 
+  height: 50px;
+  left: 0%;
+  padding: 10px;
+}
+
+.custom-dropdown-btn {
+  background-color: transparent; 
+  border: none;  
+  outline: none;               
+  color: #000;                 
+  font-size: 16px;              
+  padding: 0;                  
+  transition: color 0.3s;      
+}
+
+.dropdown-menu {
+  margin-top: 0;                
+}
+
+.mega{
+  position: absolute;
+  width: 850px;
+  height: auto;
+  top: auto;
+  left: 0;
+  right: 0;
+  line-height: 2em;
+  background-color:rgba(255, 245, 245, 0.868) ;
+  z-index: 100;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: none;
+}
+
+li{
+font-family: "Poppins";
+}
+
+
+
+
+
+
+.category-item {
+  position: relative;
+  text-decoration: none;       
+  cursor: pointer;             
+  transition: color 0.3s ease, border-color 0.3s ease;  
+}
+
+.category-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  bottom: -5px;
+  left: 0;
+  background: black;          
+  transition: width 0.3s ease;
+}
+
+.category-item:hover::after {
+  width: 100%;                 
+}
+
+.category-item:focus {
+  outline: none;               
+}
+
+.category-item:active {
+  outline: none;
+  background-color: transparent; 
+}
+
+.category-item:hover {
+  color: rgb(251, 119, 75);              
+}
+
+.custom-dropdown-menu {
+  margin-top: 10px; 
+}
+
+/* Style simple et léger pour le bouton */
+.btn-light {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-light:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+
+.btn-signin {
+  background-color: #fb774b; /* Couleur du bouton */
+  color: white; /* Couleur du texte */
+  border: none; /* Pas de bordure */
+  padding: 10px 20px; /* Espacement interne */
+  border-radius: 25px; /* Coins arrondis */
+  font-family: Poppins; /* Police de caractères */
+  font-size: 14px; /* Taille de la police */
+  cursor: pointer; /* Curseur pointer */
+  transition: background-color 0.3s ease; /* Transition de couleur */
+}
+
+.btn-signin:hover {
+  background-color: #e86b3a; /* Couleur au survol */
+
+}

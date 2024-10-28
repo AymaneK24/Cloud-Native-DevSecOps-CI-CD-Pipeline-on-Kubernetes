@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { routes } from '../app.routes';
 import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -21,17 +23,34 @@ export class NavbarComponent implements OnInit{
   searchKey !: string;
   @Output() searchedText = new EventEmitter<string>();
   @Output() selectedCategory = new EventEmitter<string>();
-  isLoggedIn !: boolean ;
+  isAuthenticated: boolean = false;
+  username: string | null = null;
+
   constructor (private productService : ProductService , private authService : AuthService , private router : Router){}
 
 
   ngOnInit(): any {
+    
+    this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isAuthenticated = isLoggedIn;
+      if (isLoggedIn) {
+          this.authService.getUsername().then((name) => {
+              this.username = name; 
+          });
+      } else {
+          this.username = null; 
+      }
+  });
+
+
     this.productService.getProductCategory()
     .subscribe((response :any) =>{
       this.categories = response;
       }, (error: any) => {
         console.error('Error fetching products', error);  
       });
+
+    
       
     }
 
@@ -60,13 +79,14 @@ export class NavbarComponent implements OnInit{
 
     signIn() {
       this.router.navigate(['/auth']);
+
     }
     
 
 
     signOut(){
-      this.authService.logout()
-      this.isLoggedIn = this.authService.isAuthenticated();
+     this.authService.logout();
+
     }
   
 

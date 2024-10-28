@@ -28,7 +28,7 @@
       />
     </div>
     
-    <button type="submit" class="btn-submit" [disabled]="!loginForm.valid">
+    <button (click)="SignIn()" type="submit" class="btn-submit" [disabled]="!loginForm.valid">
       Login
     </button>
     

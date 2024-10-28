@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,15 +17,11 @@ export class SignUpComponent {
   username: string = '';
   password: string = '';
 
+
+  constructor(private authService : AuthService){}
+
   onSubmit() {
-  
-    const signUpData = {
-      email: this.email,
-      username: this.username,
-      password: this.password
-    };
-    
-    console.log('Sign Up Data:', signUpData);
+    /*this.authService.SignUp(this.email,this.username,this.password)*/
   }
 
 }

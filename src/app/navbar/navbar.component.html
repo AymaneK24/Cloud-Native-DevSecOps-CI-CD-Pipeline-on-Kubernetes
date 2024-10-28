@@ -63,14 +63,23 @@
 
       </ul>
 
-      <button (click)="signIn()" *ngIf="!isLoggedIn" class="btn-signin" type="button">
+      <button (click)="signIn()" *ngIf="!isAuthenticated" class="btn-signin" type="button" >
         Sign In
       </button>
 
-      <!-- Logout Button -->
-      <button *ngIf="isLoggedIn" class="btn-light" type="button">
-        Logout
-      </button>
+      <div *ngIf="isAuthenticated" class="user-menu">
+        
+        <div class="dropdown">
+          <button class="dropdown-toggle" type="button">
+            <i class="fa-regular fa-user"></i>
+            
+          </button>
+          <span class="welcome-text">  Bienvenue,{{username}} </span>
+          <div class="dropdown-menu">
+            <a (click) ="signOut()" class="dropdown-item" >Logout</a>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

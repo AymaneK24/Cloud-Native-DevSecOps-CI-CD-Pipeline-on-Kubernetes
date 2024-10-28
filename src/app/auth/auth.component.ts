@@ -20,9 +20,7 @@ export class AuthComponent {
 
 
   onSubmit() {
-  console.log('Username:', this.email);
-  console.log('Password:', this.password);
-  // Add your authentication logic here}
+  this.authService.login(this.email,this.password);
 }
 
   /*
@@ -37,20 +35,10 @@ export class AuthComponent {
 
  }*/
   
-  /*login(){
-    
-    this.authService.login();
-    this.router.navigate(['/orders'])
-    
-  }
+    SignIn(){
+      this.authService.login(this.email,this.password);
+      this.router.navigate(['/']);
+    }
 
-
- 
-  
-    
-
-
-}
-*/
-
+   
 }

@@ -32,11 +32,11 @@
   
   <form [formGroup]="commentForm" (ngSubmit)="submitComment()" class="comment-form">
     <textarea formControlName="comment" placeholder="Leave your comment here..." class="comment-textarea"></textarea>
-    <button type="submit" class="comment-submit">Submit</button>
+    <button type="submit" [disabled] = "!commentForm.valid" class="comment-submit">Submit</button>
   </form>
 
   <!-- Display the submission message -->
-  <div *ngIf="submissionMessage" class="submission-message" >
+  <div *ngIf="submissionMessage && commentForm.valid " class="submission-message" >
     {{ submissionMessage }}
   </div>
 </div>

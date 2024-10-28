@@ -4,9 +4,12 @@ import{AngularFireModule} from '@angular/fire/compat'
 import{AngularFireAuthModule,AngularFireAuth} from '@angular/fire/compat/auth'
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp } from 'firebase/app';
 
-
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { AuthInterceptor } from './auth-interceptor';
 const firebaseConfig = {
   apiKey: "AIzaSyCWwlpnAlWszxCRgU3Sh5Y8pQbZOoQn5OU",
   authDomain: "e-commerce-efdf0.firebaseapp.com",
@@ -18,13 +21,22 @@ const firebaseConfig = {
 };
 
 export const appConfig: ApplicationConfig = {
- 
+  
+
  
   
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),provideHttpClient()
+   
+   
     , importProvidersFrom(AngularFireModule.initializeApp(firebaseConfig)),
     importProvidersFrom(AngularFireAuth),
     importProvidersFrom(AngularFireAuthModule),
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    }
+    
 
       
   ]

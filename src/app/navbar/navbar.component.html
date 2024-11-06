@@ -7,9 +7,11 @@
 
 
     <div class="dropdown ml-5">
-      <button class="btn btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
+      <button  class="btn btn-secondary dropdown-toggle custom-dropdown-btn" type="button" data-bs-toggle="dropdown"
         aria-expanded="false" style="font-family: Poppins;"> Our categories
       </button>
+
+       
 
       <div class="mega dropdown-menu custom-dropdown-menu">
         <div class="container">
@@ -45,7 +47,7 @@
 
         <li class="nav-item">
           
-          <a class="nav-link" routerLink="">Home</a>
+          <a class="nav-link" (click)="onHomeClick()" routerLink="">Home</a>
         
         </li>
 

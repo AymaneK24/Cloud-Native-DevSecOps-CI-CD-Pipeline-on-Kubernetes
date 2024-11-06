@@ -1,1 +1,40 @@
-<p>orders works!</p>
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+    <h2 style="color: #fb774b; text-align: center; font-weight: 700;">My Orders</h2>
+    <hr class="mb-4" style="border-top: 2px solid #fb774b; width: 50%; margin: auto;">
+  
+    <div class="order-card mt-4" *ngFor="let order of userOrders">
+      <div class="card border-secondary mb-3">
+        <div class="card-header" style="background-color: #fb774b; color: white;">
+            Order Date: {{ order.dateCommande | date: 'MM/dd/yyyy' }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title" style="color: #fb774b;">Order Total: {{ order.montant | currency:'USD':'symbol':'1.2-2' }}</h5>
+  
+          <table class="table table-hover mt-3">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of order.details; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                  <img [src]="detail.produit.thumbnail" class="img-thumbnail me-2" style="width: 50px;">
+                  {{ detail.produit.title }}
+                </td>
+                <td>{{ detail.qte }}</td>
+                <td>{{ detail.produit.price * detail.qte | currency:'USD':'symbol':'1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

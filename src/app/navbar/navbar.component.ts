@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit{
   @Output() selectedCategory = new EventEmitter<string>();
   isAuthenticated: boolean = false;
   username: string | null = null;
+  @Output() resetProducts = new EventEmitter<void>();
 
   constructor (private productService : ProductService , private authService : AuthService , private router : Router){}
 
@@ -88,8 +89,13 @@ export class NavbarComponent implements OnInit{
      this.authService.logout();
 
     }
-  
 
+    
+ 
+  
+    onHomeClick() {
+      this.resetProducts.emit(); // Emit an event when "Home" is clicked
+    }
 
   
 

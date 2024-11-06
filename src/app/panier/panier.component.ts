@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { lignePanier } from '../../models/lignePanier';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 import { PanierService } from '../panier.service';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { product } from '../../models/product';
+import { CommandeService } from '../commande.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-panier',
@@ -18,7 +19,7 @@ export class PanierComponent implements OnInit {
  detailPanier :lignePanier[] = [];
  totalPaymentPrice !: number;
 
-  constructor(private panierService: PanierService){
+  constructor(private panierService: PanierService , private commandeService : CommandeService, private authService : AuthService, private router : Router ){
     
   }
 
@@ -49,6 +50,24 @@ export class PanierComponent implements OnInit {
     
 
   }
+
+  validerCommande() {
+    if (this.authService.isAuthenticated()) {
+      const confirmation = confirm("Are you sure you want to confirm your order?");
+      if (confirmation) {
+        this.commandeService.addCommande(new Date(), this.detailPanier, this.totalPaymentPrice);
+        alert("Your order has been confirmed!");
+      }
+    } else {
+      alert("Please log in to confirm your order.");
+      this.router.navigate(['/login']);
+    }
+  }
+
+
+
+
+  
 
 
 /*

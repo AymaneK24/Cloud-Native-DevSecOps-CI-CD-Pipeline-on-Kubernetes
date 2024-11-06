@@ -73,11 +73,23 @@ export class AuthService  {
       });
   }
 
+  
   async getUsername(): Promise<string | null> {
     const user = await this.afAuth.currentUser;
-    console.log(user ? user.displayName : null);
+   /* console.log(user ? user.displayName : null);*/
     return user ? user.displayName : null; 
 }
+
+async getUserId(): Promise<string | null> {
+  const user = await this.afAuth.currentUser; 
+  return user ? user.uid : null; 
+}
+
+isAuthenticated(): boolean {
+  return this.isLoggedInSubject.getValue();
+}
+
+
   
 }
 

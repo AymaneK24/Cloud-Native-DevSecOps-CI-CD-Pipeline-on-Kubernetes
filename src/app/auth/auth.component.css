@@ -80,3 +80,45 @@
     text-decoration: underline;
   }
   
+
+
+
+
+  /* Style des messages d'erreur */
+.error-message {
+  color: #e74c3c;  /* Rouge vif pour attirer l'attention */
+  font-size: 14px;  /* Taille légèrement réduite */
+  margin-top: 5px;
+  text-align: left;  /* Alignement à gauche pour mieux s'adapter au formulaire */
+  display: block;
+}
+
+/* Contexte des erreurs d'email */
+.error-message-email {
+  color: #e74c3c;  /* Utilisation d'un rouge vif similaire pour cohérence */
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  display: block;
+}
+
+/* Contexte des erreurs de mot de passe */
+.error-message-password {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  display: block;
+}
+
+/* Style du message d'erreur lorsqu'un champ est en erreur */
+.form-group.invalid .form-control {
+  border-color: #e74c3c;  /* Accent rouge sur le champ avec erreur */
+}
+
+/* Style pour le message d'erreur de focus du champ */
+.form-group.invalid .form-control:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.5); /* Légère ombre rouge pour indiquer l'erreur */
+}
+

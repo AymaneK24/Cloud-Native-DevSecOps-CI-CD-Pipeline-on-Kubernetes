@@ -5,11 +5,14 @@ import{AngularFireAuthModule,AngularFireAuth} from '@angular/fire/compat/auth'
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
-import { provideFirebaseApp } from '@angular/fire/app';
+import { FirebaseApp, provideFirebaseApp } from '@angular/fire/app';
+
+
+import {Firestore, provideFirestore} from '@angular/fire/firestore' ;
+import { AuthInterceptor } from './auth-interceptor';
+import { getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { AuthInterceptor } from './auth-interceptor';
 const firebaseConfig = {
   apiKey: "AIzaSyCWwlpnAlWszxCRgU3Sh5Y8pQbZOoQn5OU",
   authDomain: "e-commerce-efdf0.firebaseapp.com",
@@ -27,15 +30,34 @@ export const appConfig: ApplicationConfig = {
   
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(),provideHttpClient()
    
+    ,
+    
+
+    provideFirestore(() => getFirestore()), 
+
+    
+    provideZoneChangeDetection({ eventCoalescing: true }),
    
-    , importProvidersFrom(AngularFireModule.initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    
+    importProvidersFrom(FirebaseApp),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    
+   
+     importProvidersFrom(AngularFireModule.initializeApp(firebaseConfig)),
     importProvidersFrom(AngularFireAuth),
     importProvidersFrom(AngularFireAuthModule),
+   
+    
+    
+    
     {
       provide : HTTP_INTERCEPTORS,
       useClass : AuthInterceptor,
       multi : true
-    }
+    },
+    
     
 
       

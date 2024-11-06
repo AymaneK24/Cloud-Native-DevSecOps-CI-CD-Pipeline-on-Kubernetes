@@ -21,7 +21,8 @@ export class SignUpComponent {
   constructor(private authService : AuthService){}
 
   onSubmit() {
-    /*this.authService.SignUp(this.email,this.username,this.password)*/
+    console.log("Created user ")
+    this.authService.SignUp(this.email,this.username,this.password);
   }
 
 }

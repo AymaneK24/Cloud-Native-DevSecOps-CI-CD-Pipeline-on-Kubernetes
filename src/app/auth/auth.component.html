@@ -10,10 +10,17 @@
         id="email"
         name="email"
         [(ngModel)]="email"
+        #emailModel="ngModel"
         placeholder="Email"
         class="form-control"
         required
+        email
       />
+      <!-- Messages d'erreur pour l'email -->
+      <div *ngIf="emailModel.touched && emailModel.invalid">
+        <small *ngIf="emailModel.errors?.['required']" class="error-message">L'email est obligatoire.</small>
+        <small *ngIf="emailModel.errors?.['email']" class="error-message">L'email est incorrect.</small>
+      </div>
     </div>
     
     <div class="form-group">
@@ -22,19 +29,25 @@
         id="password"
         name="password"
         [(ngModel)]="password"
+        #passwordModel="ngModel"
         placeholder="Password"
         class="form-control"
         required
+        minlength="6"
       />
+      <!-- Messages d'erreur pour le mot de passe -->
+      <div *ngIf="passwordModel.touched && passwordModel.invalid">
+        <small *ngIf="passwordModel.errors?.['required']" class="error-message">Le mot de passe est obligatoire.</small>
+        <small *ngIf="passwordModel.errors?.['minlength']" class="error-message">Le mot de passe doit contenir au moins 6 caractères.</small>
+      </div>
     </div>
     
     <button (click)="SignIn()" type="submit" class="btn-submit" [disabled]="!loginForm.valid">
       Login
     </button>
     
-    <!-- Petit texte pour Sign Up -->
     <p class="signup-text">
-      Not registered yet?  <a [routerLink] = "['/sign-up']" class="signup-link"> Sign Up</a>
+      Not registered yet? <a [routerLink]="['/sign-up']" class="signup-link">Sign Up</a>
     </p>
   </form>
 </div>

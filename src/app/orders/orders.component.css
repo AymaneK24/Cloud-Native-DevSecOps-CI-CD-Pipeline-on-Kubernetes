@@ -1,0 +1,13 @@
+.order-card .card {
+    border: 1px solid #fb774b;
+    border-radius: 5px;
+  }
+  
+  .order-card .card-header {
+    font-weight: bold;
+  }
+  
+  .order-card .card-body {
+    padding: 20px;
+  }
+  

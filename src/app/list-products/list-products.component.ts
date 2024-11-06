@@ -36,7 +36,9 @@ export class ListProductsComponent implements OnInit {
         console.error('Error fetching products', error);
       });
 
+    
     this.productService.getProductCategory()
+  
 
   }
 
@@ -77,6 +79,20 @@ export class ListProductsComponent implements OnInit {
 
 
   }
+
+
+  resetCategory(){
+    this.categoryIschosen = false;
+    this.productService.getProducts()
+    .subscribe((response: any) => {
+      this.products = response.products;
+    }, (error) => {
+      console.error('Error fetching products', error);
+    });
+  }
+
+
+
 }
 
 

@@ -8,7 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [FormsModule,NavbarComponent,RouterModule],
+  imports: [FormsModule,NavbarComponent,RouterModule,CommonModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })

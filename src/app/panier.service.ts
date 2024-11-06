@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { lignePanier } from '../models/lignePanier';
 import { product } from '../models/product';
+import { Firestore } from '@angular/fire/firestore';
 
 
 @Injectable({

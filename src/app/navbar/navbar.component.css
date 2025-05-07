@@ -26,7 +26,7 @@
 .navbar i:active,
 .navbar-light .navbar-nav .nav-link.active{
 
-  color: coral;
+  color:#9bc400;
 }
 
 .navbar i{
@@ -47,7 +47,7 @@
 
 #bar:hover,
 #bar:active{
-  color: coral;
+  color: #9bc400;
   
 
 }
@@ -181,7 +181,7 @@ font-family: "Poppins";
 }
 
 .category-item:hover {
-  color: rgb(251, 119, 75);              
+  color: #9bc400;              
 }
 
 .custom-dropdown-menu {
@@ -207,7 +207,7 @@ font-family: "Poppins";
 
 
 .btn-signin {
-  background-color: #fb774b; /* Couleur du bouton */
+  background-color: #9bc400; /* Couleur du bouton */
   color: white; /* Couleur du texte */
   border: none; /* Pas de bordure */
   padding: 10px 20px; /* Espacement interne */
@@ -219,7 +219,7 @@ font-family: "Poppins";
 }
 
 .btn-signin:hover {
-  background-color: #e86b3a; /* Couleur au survol */
+  background-color: #9bc400 /* Couleur au survol */
 
 }
 

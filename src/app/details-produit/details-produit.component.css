@@ -79,7 +79,7 @@
 }
 
 .buy-btn {
-  background-color: #fb774b;
+  background-color: #9bc400;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -91,7 +91,7 @@
 }
 
 .buy-btn:hover {
-  background-color: #e9653b;
+  background-color: #9bc400;
 }
 
 /* Product description */
@@ -121,13 +121,13 @@
 
 .comment-box:focus {
   outline: none;
-  border-color: #fb774b;
+  border-color: #9bc400;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Bouton de soumission */
 .submit-btn {
-  background-color: #fb774b;
+  background-color: #9bc400;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -139,7 +139,7 @@
 }
 
 .submit-btn:hover {
-  background-color: #e9653b;
+  background-color: #9bc400;
 }
 
 /* Style du composant CoreUI Rating */
@@ -151,7 +151,7 @@
 }
 
 .rating .active {
-  color: #fb774b;
+  color: #9bc400;
 }
 
 
@@ -195,7 +195,7 @@
 }
 
 .comment-submit {
-  background-color: #fb774b; /* Button color */
+  background-color: #9bc400; /* Button color */
   color: white; /* Button text color */
   padding: 10px; /* Inner padding */
   border: none; /* Remove border */
@@ -205,7 +205,7 @@
 }
 
 .comment-submit:hover {
-  background-color: #e9653b; /* Darker shade on hover */
+  background-color: #9bc400; /* Darker shade on hover */
 }
 
 

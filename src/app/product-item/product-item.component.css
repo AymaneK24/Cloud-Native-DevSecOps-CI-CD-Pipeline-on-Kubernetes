@@ -17,7 +17,7 @@
  .buy-btn{
     border: 1px solid rgba(255, 255, 255, 0.526);
     padding: 0 10px;
-    background: #fb774b;
+    background: #9bc400;
     transform: translateY(20px);
     opacity: 0;
     transition: 0.3s all;

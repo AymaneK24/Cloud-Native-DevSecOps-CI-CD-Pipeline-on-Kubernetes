@@ -34,7 +34,7 @@ pipeline {
        stage('Install Dependencies & Build Angular App') {
     steps {
         script {
-            
+
             sh 'npm install -g @angular/cli'
             sh 'npm install'
             sh 'ng version'
@@ -67,6 +67,13 @@ pipeline {
                         sh "docker push hafssa260/ecom-app:latest"
                     }
                 }
+            }
+        }
+
+
+        stage("TRIVY"){
+            steps{
+                sh "trivy image hafssa260/ecom-app:latest > trivyimage.txt" 
             }
         }
     }

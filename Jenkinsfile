@@ -34,18 +34,15 @@ pipeline {
        stage('Install Dependencies & Build Angular App') {
     steps {
         script {
-            // Installer Angular CLI globalement
+            
             sh 'npm install -g @angular/cli'
-            
-            // Installer les dépendances du projet
             sh 'npm install'
-            
-            // Vérifier la version d'Angular CLI
             sh 'ng version'
-            
-            // Exécuter le build
             sh 'ng build e-commerce --output-path=front --configuration=production'
-            sh 'mv front/e-commerce/browser/index.csr.html front/e-commerce/browser/index.html'
+            sh 'ls -l front'
+            sh 'ls -l front/browser'
+            sh 'mv front/browser/index.csr.html front/browser/index.html'
+            
         }
     }
 }

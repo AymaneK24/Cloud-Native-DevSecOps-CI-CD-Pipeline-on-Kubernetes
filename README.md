@@ -29,10 +29,29 @@ It’s a dynamic e-commerce web application 🛒 developed with:
 
 ☁️ **And guess what ?** All of that is configured and hosted on AWS EC2 instances
 
-### ⚙️ Setting up AWS EC2 instances
+## ⚙️ Step1 : Setting up AWS EC2 instances
 
+![Screenshot from 2025-05-07 18-41-32](https://github.com/user-attachments/assets/cf77ab7a-8e37-47b3-adb9-00cae0c1566d)
 
+**We provisioned 5 EC2 instances** :
 
+- Master (t2.medium): acts as the control node in the Kubernetes cluster.
 
+- Node1 and Node2 (t2.medium): worker nodes for the Kubernetes cluster.
+
+- Jenkins Instance (t2.large): hosts Jenkins, Docker, and Trivy .
+
+- Sonar Instance (t2.medium): hosts SonarQube.
+
+To configure the Jenkins and SonarQube instances, connect to them either via SSH or directly through the AWS Console.
+\Make sure to allow **inbound traffic** on the necessary ports (e.g., 8080 for Jenkins, 9000 for SonarQube) in the **security group settings** to ensure external access to the services
+
+![WhatsApp Image 2025-05-07 at 19 32 31](https://github.com/user-attachments/assets/fac6375f-e4a4-4f99-8102-042ef34284b9)
+
+### Now time to set up the Kubernetes cluster 🚀
+
+![WhatsApp Image 2025-05-07 at 21 02 23 (1)](https://github.com/user-attachments/assets/a561c47e-a171-4890-9dcf-3eb60e81d21a)
+
+### 
 
 

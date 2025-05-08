@@ -209,32 +209,126 @@ pipeline {
 }
 ```
 
-✅ If the build passes  at first try (which is defenitly not the case ) then congrats 🎊\
+✅ If the build passes  at first try (which is defenitly not the case ) then congrats 🎊
 \
 1️⃣ Head to checkout the sonar analysis :
 ![WhatsApp Image 2025-05-07 at 19 21 40](https://github.com/user-attachments/assets/74d327eb-827a-4b32-98c8-f60417039540)
 
 \
-2️⃣You should be able to have a look on depency check results
+2️⃣You should be able to have a look on depency check results as well
 \
 \
 ![WhatsApp Image 2025-05-07 at 19 24 30](https://github.com/user-attachments/assets/1793aa62-b0c8-46bd-bf59-414822b1fd35)
 
 
 \
-3️⃣ And you should be able to find the updated image pushed on your repo :
+3️⃣ Go check if the image has been pushed and test it too :
 ![Screenshot from 2025-05-07 01-02-19](https://github.com/user-attachments/assets/97e70151-09b7-4484-8837-ca8c763d0fe6)
 
-## Step4 : Deploy to Kubernetes
+## Step 4 : Deploy to Kubernetes ☸️
 
-First we should prepare our yaml file to define the deployment :\
-We will deploy our ecom-app on Kubernetes using  the defined deployment and expose it using a **LoadBalancer Service**.\
+
+We will deploy our ecom-app on Kubernetes by defining the  deployment and then expose it using a **LoadBalancer Service**.\
 Checkout the [.yaml file](https://github.com/HafssaRaoui/e-commerce-app/blob/master/Hafssap.yaml)
 
 \
-Add the following stage to the previous pipeline , and rebuild (manually or by push webhook triggers)
+Add the following stage to the previous pipeline.
+```javascript
+stage('Deploy App on k8s') {
+    steps {
+        writeFile file: 'Hafsapp.yaml', text: '''
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecom-app
+  labels:
+    app: ecom-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ecom-app
+  template:
+    metadata:
+      labels:
+        app: ecom-app
+    spec:
+      containers:
+      - name: ecom-app
+        image: hafssa260/ecom-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecom-app
+spec:
+  selector:
+    app: ecom-app
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+'''
+
+        sshagent(['kube']) {
+            sh "scp -o StrictHostKeyChecking=no Hafsapp.yaml ubuntu@13.38.72.213:/home/ubuntu"
+
+            script {
+                def applyStatus = sh(
+                    script: "ssh ubuntu@13.38.72.213 'kubectl apply -f /home/ubuntu/Hafsapp.yaml'",
+                    returnStatus: true
+                )
+
+                if (applyStatus != 0) {
+                    error("Deployment failed!")
+                }
+            }
+        }
+    }
+}
+
 ```
+
+
+- Wer're basically **copying our yaml file**  to the Kubernetes master node : ``13.38.72.213``  
+- Wer're using as well **SSH credentials** to connect to kubernetes server
+
+  Once connected the script applies the deployment via the command :
+ ```
+kubectl apply -f /home/ubuntu/Hafsapp.yaml
 ```
+
+So far we have done a really good work 💪😄
+
+Trigger a build and check if the deployment passes , in that case the website should be accessible on both nodes 
+- Node1 , IP ``51.44.25.127`` 
+![WhatsApp Image 2025-05-07 at 19 20 45](https://github.com/user-attachments/assets/eb971fb0-66d7-4d75-9a54-9092be8eddd0)
+- Node1 , IP ``51.44.183.33``
+![WhatsApp Image 2025-05-07 at 19 20 46](https://github.com/user-attachments/assets/ce137ba4-02cd-4d4c-9db6-cbff25908d4e)
+
+- You can examine as well the nodes and  pods running on our kubernetes cluster
+![WhatsApp Image 2025-05-07 at 19 29 39](https://github.com/user-attachments/assets/de6fc945-8741-4603-923a-13f4247ecda6)
+
+🌐 As a final enhancement we will integrate a load balancer
+
+- The ALB listens on HTTP port 80.
+- Incoming traffic is forwarded to a target group that contains the Kubernetes nodes.
+- Each node in the target group receives traffic on NodePort 31965, which is mapped to the Kubernetes service exposing the app.
+![WhatsApp Image 2025-05-07 at 20 20 56](https://github.com/user-attachments/assets/81237abc-0a40-4853-9be2-a787d316c25a)
+
+- 🔥 Finally: Test the Access! ``http://<your-alb-dns-name>`` 
+![WhatsApp Image 2025-05-07 at 20 18 35](https://github.com/user-attachments/assets/d04122d0-7fca-4e7b-a2d6-713b107ebb0a)
+
+
+
+
+  
+
+
+
 
  
 

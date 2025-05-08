@@ -54,9 +54,225 @@ To configure the Jenkins and SonarQube instances, connect to them either via SSH
 ![WhatsApp Image 2025-05-07 at 19 32 31](https://github.com/user-attachments/assets/fac6375f-e4a4-4f99-8102-042ef34284b9)
 
 
-## Step 2 : Now time to set up the Kubernetes cluster 🚀
+## Step2 : Now time to set up the Kubernetes cluster 🚀
 
 ![WhatsApp Image 2025-05-07 at 21 02 23 (1)](https://github.com/user-attachments/assets/a561c47e-a171-4890-9dcf-3eb60e81d21a)
+
+
+- **Architecture**: 1 control plane node + 2 worker nodes
+- **Environment**: AWS EC2 instances (t2.medium) with 10 GB EBS Volume
+- **Container Runtime**: containerd
+- **Network Plugin**: Calico
+
+
+1. ** Go Create 3 EC2 Instances of type t2.medium **
+   - 1 control plane node
+   - 2 worker nodes
+
+2. **Security Group Configuration**:
+   - **Ingress**: SSH + all traffic from the security group
+   - **Egress**: Allow all traffic
+
+### Installation Steps
+
+#### 1. First SSH To All Nodes
+
+Run these steps on **all nodes** as the root/sudo user:
+```bash
+sudo su
+```
+
+##### 1.1 Set Hostnames (Optional)
+
+```bash
+# On control plane
+hostnamectl set-hostname controlplane
+# On worker 1
+hostnamectl set-hostname worker1
+# On worker 2
+hostnamectl set-hostname worker2
+```
+
+##### 1.2 Verify Unique MAC and Product UUID
+
+```bash
+ip link
+cat /sys/class/dmi/id/product_uuid
+```
+
+##### 1.3 Disable Swap
+
+```bash
+# for kubelet to work 
+swapoff -a
+```
+
+##### 1.4 Configure & Enabling IPv4 Packet Forwarding
+
+```bash
+echo "net.ipv4.ip_forward = 1" | tee /etc/sysctl.d/k8s.conf
+sysctl --system 
+sysctl net.ipv4.ip_forward  # Verify
+```
+
+##### 1.5 Install Container Runtime (containerd)
+Docker also support containerd
+```bash
+apt update && apt upgrade -y
+apt-get install containerd
+ctr --version  # Verify installation
+```
+
+##### 1.6 Install CNI Plugins
+
+```bash
+# Manual Installation 
+mkdir -p /opt/cni/bin
+
+wget -q https://github.com/containernetworking/plugins/releases/download/v1.7.1/cni-plugins-linux-amd64-v1.7.1.tgz
+
+tar Cxzf /opt/cni/bin cni-plugins-linux-amd64-v1.7.1.tgz
+```
+
+##### 1.7 Configure containerd
+
+Generate config :
+```bash
+mkdir -p /etc/containerd
+containerd config default > /etc/containerd/config.toml
+```
+
+Verify CRI is enabled:
+```bash
+head /etc/containerd/config.toml
+#disabled_plugins list should be empty
+```
+
+Configure systemd cgroup driver:
+ 
+```bash
+# use vi or nano it's your choice mate
+# Update in [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]:
+# SystemdCgroup = true
+
+vi /etc/containerd/config.toml
+
+
+# Update in [plugins."io.containerd.grpc.v1.cri"]:
+# sandbox_image = "registry.k8s.io/pause:3.10"
+
+systemctl restart containerd
+```
+
+##### 1.8 Install Kubernetes Tools
+
+```bash
+apt-get update
+
+apt-get install -y apt-transport-https ca-certificates curl gpg
+
+
+apt-get install -y apt-transport-https ca-certificates curl gpg
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+
+echo deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ / |  tee /etc/apt/sources.list.d/kubernetes.list
+
+apt-get update
+
+apt-get install -y kubelet kubeadm
+
+```
+
+##### 1.9 Install kubectl (control plane | Master node only) 
+
+```bash
+apt-get install -y kubectl
+```
+
+#### 2. Create the Kubernetes Cluster
+
+##### 2.1 Initialize Control Plane
+
+On the control plane node:
+> ⚠️ **Note**: Save the join command that will be displayed in the output!
+```bash
+#for the cidr see your vpc aws settings  if you see there /16 the commands below in fine mate, your are good to go, if not don't specify the network it's kinda optional but a good idea
+
+kubeadm init --pod-network-cidr=192.168.0.0/16
+
+```
+> ⚠️ **Note**: Save all the output there is some commands 
+
+
+
+##### 2.2 Join Worker Nodes
+
+On each worker node, run the join command from the previous step:
+```bash
+# This is just an example of output , you have your own output displayed in master=control plane node
+kubeadm join 172.31.25.150:6443 --token 2i8vrs.wsshnhe5zf87rhhu --discovery-token-ca-cert-hash sha256:eacbaf01cc58203f3ddd69061db2ef8e64f450748aef5620ec04308eac44bd77
+```
+
+
+
+##### 2.3 Configure kubectl for Non-Root Users
+
+On the control plane:
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+Verify the cluster:
+```bash
+kubectl get nodes -o wide
+```
+
+
+##### 2.4 Install Networking Plugin (Calico)
+There's a lot of networking plugins, here i choosed Calico cause it's simple
+
+On the control plane:
+```bash
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/tigera-operator.yaml
+
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/custom-resources.yaml
+watch kubectl get pods -n calico-system
+```
+
+#### 3. Making the User Ubuntu able to use Kubectl (Master) Not Only the root
+
+
+##### 3.1 Copy the Cluster Configuration as the non root user 
+logout or exsit from the root user and use the ubuntu user 
+
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+# so everything is fine do this !!
+sudo cat /etc/kubernetes/admin.conf #copy the output
+nano config2 # and past here save and close
+sudo mv config2 .kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+kubectl get nodes
+#congrats
+```
+
+#### Troubleshooting
+
+- Ensure security groups allow traffic between nodes
+- Check pod network CIDR if using a network plugin other than Calico
+- Verify container runtime is properly configured
+- See in security groups ALL ICMP Traffic is allowed (Connectivity between nodes : this will make workers able to join and communicate between theme)
+
 
 ## Step 3 : Jenkins Setup & initial pipeline
 ### 🧩 Plugins :

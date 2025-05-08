@@ -28,7 +28,7 @@ It’s a dynamic e-commerce web application 🛒 developed with:
 - **Kubernetes** for deployment
 
 ## ☁️ **And guess what ?** All of that is configured and hosted on AWS EC2 instances
-![WhatsApp Image 2025-05-08 at 01 00 19 (1)](https://github.com/user-attachments/assets/da4b13e2-33b5-49e5-9931-b4418e485670)
+![draw1](https://github.com/user-attachments/assets/043ecbd2-26d7-4645-b8d0-cd394295b953)
 
 
 

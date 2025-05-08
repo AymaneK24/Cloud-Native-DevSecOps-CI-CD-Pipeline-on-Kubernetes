@@ -6,12 +6,12 @@ This project demonstrates how to build a DevSecOps pipeline that automates the d
 ## 🤔 What kind of app are we deploying?
 It’s a dynamic e-commerce web application 🛒 developed with:
 
-🅰️ Angular 18 – for a fast, modern, and component-based frontend
+🅰️ Angular 18 – for the frontend
 
-🔥 Firebase – handling backend services like authentication, database, and hosting
+🔥 Firebase – handling backend services like authentication and database
 
 
-## 🔄 A Global View of the Pipeline Workflow
+## 🔄 A Global View on the Pipeline Workflow
 
 ![Diagramme vierge (2)](https://github.com/user-attachments/assets/5c1c37c1-717d-476c-a988-36ae8ce97b2e)
 
@@ -25,11 +25,14 @@ It’s a dynamic e-commerce web application 🛒 developed with:
 
 - **Docker** for containerization
 
-- **Kubernetes** for orchestration
+- **Kubernetes** for deployment
 
-☁️ **And guess what ?** All of that is configured and hosted on AWS EC2 instances
+## ☁️ **And guess what ?** All of that is configured and hosted on AWS EC2 instances
+![WhatsApp Image 2025-05-08 at 01 00 19 (1)](https://github.com/user-attachments/assets/da4b13e2-33b5-49e5-9931-b4418e485670)
 
-## ⚙️ Step1 : Setting up AWS EC2 instances
+
+
+## ⚙️ Step 1 : Setting up AWS EC2 instances
 
 ![Screenshot from 2025-05-07 18-41-32](https://github.com/user-attachments/assets/cf77ab7a-8e37-47b3-adb9-00cae0c1566d)
 
@@ -51,11 +54,11 @@ To configure the Jenkins and SonarQube instances, connect to them either via SSH
 ![WhatsApp Image 2025-05-07 at 19 32 31](https://github.com/user-attachments/assets/fac6375f-e4a4-4f99-8102-042ef34284b9)
 
 
-## Step2 : Now time to set up the Kubernetes cluster 🚀
+## Step 2 : Now time to set up the Kubernetes cluster 🚀
 
 ![WhatsApp Image 2025-05-07 at 21 02 23 (1)](https://github.com/user-attachments/assets/a561c47e-a171-4890-9dcf-3eb60e81d21a)
 
-## Step3 : Jenkins Setup && initial pipeline
+## Step 3 : Jenkins Setup & initial pipeline
 ### 🧩 Plugins :
 
 
@@ -309,7 +312,7 @@ Trigger a build and check if the deployment passes , in that case the website sh
 - Node1 , IP ``51.44.183.33``
 ![WhatsApp Image 2025-05-07 at 19 20 46](https://github.com/user-attachments/assets/ce137ba4-02cd-4d4c-9db6-cbff25908d4e)
 
-- You can examine as well the nodes and  pods running on our kubernetes cluster
+- You can examine as well the nodes and  pods running on your kubernetes cluster
 ![WhatsApp Image 2025-05-07 at 19 29 39](https://github.com/user-attachments/assets/de6fc945-8741-4603-923a-13f4247ecda6)
 
 🌐 As a final enhancement we will integrate a load balancer

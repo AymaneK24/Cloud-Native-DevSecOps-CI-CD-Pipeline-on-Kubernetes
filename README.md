@@ -55,7 +55,7 @@ To configure the Jenkins and SonarQube instances, connect to them either via SSH
 
 ![WhatsApp Image 2025-05-07 at 21 02 23 (1)](https://github.com/user-attachments/assets/a561c47e-a171-4890-9dcf-3eb60e81d21a)
 
-## Step3 : Jenkins Setup
+## Step3 : Jenkins Setup && initial pipeline
 ### 🧩 Plugins :
 
 
@@ -209,15 +209,31 @@ pipeline {
 }
 ```
 
-✅If the build passes  at first try (which is defenitly not the case ) then congrats 🎊\
+✅ If the build passes  at first try (which is defenitly not the case ) then congrats 🎊\
 \
-Head to checkout the sonar analysis :
+1️⃣ Head to checkout the sonar analysis :
 ![WhatsApp Image 2025-05-07 at 19 21 40](https://github.com/user-attachments/assets/74d327eb-827a-4b32-98c8-f60417039540)
 
 \
-And you should be able to find the updated image pushed on your repo :
+2️⃣You should be able to have a look on depency check results
+\
+\
+![WhatsApp Image 2025-05-07 at 19 24 30](https://github.com/user-attachments/assets/1793aa62-b0c8-46bd-bf59-414822b1fd35)
+
+
+\
+3️⃣ And you should be able to find the updated image pushed on your repo :
 ![Screenshot from 2025-05-07 01-02-19](https://github.com/user-attachments/assets/97e70151-09b7-4484-8837-ca8c763d0fe6)
 
+## Step4 : Deploy to Kubernetes
+
+First we should prepare our yaml file to define the deployment :
+We will deploy our ecom-app on Kubernetes using a the defined deployment and expose it using a **LoadBalancer Service**.
+
+
+Add the following stage to the previous pipeline , and rebuild (manually or by push webhook triggers)
+```
+```
 
  
 

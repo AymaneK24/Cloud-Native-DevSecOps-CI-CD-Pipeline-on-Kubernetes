@@ -216,23 +216,7 @@ kubeadm join 172.31.25.150:6443 --token 2i8vrs.wsshnhe5zf87rhhu --discovery-toke
 ```
 
 
-
-##### 2.3 Configure kubectl for Non-Root Users
-
-On the control plane:
-```bash
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-Verify the cluster:
-```bash
-kubectl get nodes -o wide
-```
-
-
-##### 2.4 Install Networking Plugin (Calico)
+##### 2.5 Install Networking Plugin (Calico)
 There's a lot of networking plugins, here i choosed Calico cause it's simple
 
 On the control plane:
@@ -263,7 +247,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 
 kubectl get nodes
-#congrats
+# congrats baby !!
 ```
 
 #### Troubleshooting
@@ -281,6 +265,8 @@ kubectl get nodes
 - SonarQube Scanner
 
 - NodeJS Plugin
+
+- SSH Agent
 
 - Docker plugins (Docker , Docker Commons , Docker Pipeline , Docker API ,..)
   

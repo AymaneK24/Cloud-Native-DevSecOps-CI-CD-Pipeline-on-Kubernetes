@@ -46,12 +46,27 @@ It’s a dynamic e-commerce web application 🛒 developed with:
 To configure the Jenkins and SonarQube instances, connect to them either via SSH or directly through the AWS Console.
 \Make sure to allow **inbound traffic** on the necessary ports (e.g., 8080 for Jenkins, 9000 for SonarQube) in the **security group settings** to ensure external access to the services
 
+( for installations just follow instructions on Docs )
+
 ![WhatsApp Image 2025-05-07 at 19 32 31](https://github.com/user-attachments/assets/fac6375f-e4a4-4f99-8102-042ef34284b9)
 
-### Now time to set up the Kubernetes cluster 🚀
+
+## Step2 : Now time to set up the Kubernetes cluster 🚀
 
 ![WhatsApp Image 2025-05-07 at 21 02 23 (1)](https://github.com/user-attachments/assets/a561c47e-a171-4890-9dcf-3eb60e81d21a)
 
-### 
+## Step3 : Jenkins Setup
+### 🧩 Plugins :
+
+
+- SonarQube Scanner
+
+- NodeJS Plugin
+
+- Docker plugins (Docker , Docker Commons , Docker Pipeline , Docker API ,..)
+  
+- OWASP Dependency-Check
+
+
 
 

@@ -67,6 +67,157 @@ To configure the Jenkins and SonarQube instances, connect to them either via SSH
   
 - OWASP Dependency-Check
 
+We will also need to add **nodejs20** and **jdk21** to **global config tools**\
+Simply add them using available installations options
+
+### 🔐 Jenkins Credentials Configuration
+
+Go to **Manage Jenkins → Credentials → Global → Add Credentials**, and add:
+
+- 🧪 **SonarQube Token**  
+  - Type: *Secret Text*  
+  - 🆔 ID: `Sonar-token`
+
+- 🐳 **DockerHub Credentials**  
+  - Type: *Username and Password* (or Secret Text with token)  
+  - 🆔 ID: `docker`
+ 
+🔁 Alright people , let's move  to our jenkins initial **Jenkinsfile** version 
+Here we would be executing all stages till pushing the image to dockerhub (remember the workflow , try to identify each stage and match it 🕵️‍♀️) \
+Don't forget to change the image ``dockerhub-user/image-name:latest``
 
 
+```javascript title=Jenkinsfile
+
+pipeline {
+
+    agent any
+    
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+
+    tools {
+        jdk 'jdk21'
+        nodejs 'nodejs20'
+    }
+
+    stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Check Node Version') {
+            steps {
+                sh 'node --version'
+                sh 'npm --version'
+            }
+        }
+
+        stage('Checkout Code') {
+            steps {
+                checkout scmGit(
+                    branches: [[name: '*/master']],
+                    extensions: [],
+                    userRemoteConfigs: [[
+                        credentialsId: 'github-token',
+                        url: 'https://github.com/HafssaRaoui/e-commerce-app.git'
+                    ]]
+                )
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.projectName=e-commerce-website \
+                    -Dsonar.projectKey=e-commerce-website \
+                    -Dsonar.sources=src \
+                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'''
+                }
+                script {
+                    echo "SonarQube analysis complete. Check results at: http://51.44.85.43:9000/dashboard?id=e-commerce-website"
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh 'npm install -g @angular/cli@19.2.11 --force'
+                    sh 'npm install'
+                    sh 'ng version'
+                }
+            }
+        }
+
+        stage('Build Angular App') {
+            steps {
+                script {
+                    sh 'ng build e-commerce --output-path=front --configuration=production'
+                    sh 'ls -l front'
+                    sh 'ls -l front/browser'
+                    sh 'mv front/browser/index.csr.html front/browser/index.html'
+                }
+            }
+        }
+
+        stage('OWASP Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+
+        stage('Scanning With Trivy') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh "docker build -t hafssa260/ecom-app:latest ."
+                    }
+                }
+            }
+        }
+
+        stage('TRIVY Image Scan') {
+            steps {
+                sh "trivy image hafssa260/ecom-app:latest > trivyimage.txt"
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh "docker push scan image"
+                    }
+                }
+            }
+        }
+
+    }
+}
+```
+
+✅If the build passes  at first try (which is defenitly not the case ) then congrats 🎊\
+\
+Head to checkout the sonar analysis :
+![WhatsApp Image 2025-05-07 at 19 21 40](https://github.com/user-attachments/assets/74d327eb-827a-4b32-98c8-f60417039540)
+
+\
+And you should be able to find the updated image pushed on your repo :
+![Screenshot from 2025-05-07 01-02-19](https://github.com/user-attachments/assets/97e70151-09b7-4484-8837-ca8c763d0fe6)
+
+
+ 
 

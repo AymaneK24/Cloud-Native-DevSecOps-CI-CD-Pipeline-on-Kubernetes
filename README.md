@@ -5,6 +5,7 @@ This project demonstrates how to build a DevSecOps pipeline that automates the d
 
 ## 🤔 What kind of app are we deploying?
 It’s a dynamic e-commerce web application 🛒 developed with:
+![Diagramme vierge (3)](https://github.com/user-attachments/assets/2adb7f10-b412-4be9-892b-cda4fe524018)
 
 🅰️ Angular 18 – for the frontend
 
@@ -13,7 +14,6 @@ It’s a dynamic e-commerce web application 🛒 developed with:
 
 ## 🔄 A Global View on the Pipeline Workflow
 
-![Diagramme vierge (2)](https://github.com/user-attachments/assets/5c1c37c1-717d-476c-a988-36ae8ce97b2e)
 
 🛠️ Tools check : 
 

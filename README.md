@@ -1,30 +1,38 @@
-# ECommerce
+# 🛒 E-commerce App — Cloud Native DevSecOps CI/CD Pipeline on Kubernetes 
+Welcome to our  DevSecOps journey! 💥 \
+\
+This project demonstrates how to build a DevSecOps pipeline that automates the deployment of our Cloud Native application onto a **Kubernetes cluster**☸️ hosted on AWS **EC2** instances. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+## 🤔 What kind of app are we deploying?
+It’s a dynamic e-commerce web application 🛒 developed with:
 
-## Development server
+🅰️ Angular 18 – for a fast, modern, and component-based frontend
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+🔥 Firebase – handling backend services like authentication, database, and hosting
 
 
-Updated readme file to test trigger
+## 🔄 A Global View of the Pipeline Workflow
+
+![Diagramme vierge (2)](https://github.com/user-attachments/assets/5c1c37c1-717d-476c-a988-36ae8ce97b2e)
+
+🛠️ Tools check : 
+
+- **Jenkins** for CI/CD automation
+
+- **SonarQube** for static code analysis
+
+- **OWASP** Dependency-Check and **Trivy** for security scanning
+
+- **Docker** for containerization
+
+- **Kubernetes** for orchestration
+
+☁️ **And guess what ?** All of that is configured and hosted on AWS EC2 instances
+
+### ⚙️ Setting up AWS EC2 instances
+
+
+
+
+
+

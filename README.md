@@ -227,10 +227,11 @@ pipeline {
 
 ## Step4 : Deploy to Kubernetes
 
-First we should prepare our yaml file to define the deployment :
-We will deploy our ecom-app on Kubernetes using a the defined deployment and expose it using a **LoadBalancer Service**.
+First we should prepare our yaml file to define the deployment :\
+We will deploy our ecom-app on Kubernetes using  the defined deployment and expose it using a **LoadBalancer Service**.\
+Checkout the [.yaml file](https://github.com/HafssaRaoui/e-commerce-app/blob/master/Hafssap.yaml)
 
-
+\
 Add the following stage to the previous pipeline , and rebuild (manually or by push webhook triggers)
 ```
 ```
